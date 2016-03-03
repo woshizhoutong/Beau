@@ -1,0 +1,11 @@
+<div class="question-header" ng-mouseenter="showEditQuestion()" ng-mouseleave="hideEditQuestion()">
+	<p>{{question.qstNum}}. {{question.qstTitle}} (TEXT)
+		<span ng-show="editQuestionVisible && !isChildQuestion" style="font-size:80%" class="glyphicon glyphicon-plus-sign" ng-click="openAddChildQuestionModal()"></span> 
+		<span ng-show="editQuestionVisible" style="font-size:80%" class="glyphicon glyphicon-pencil" ng-click="openEditQuestionModal()"></span> 
+		<span ng-show="editQuestionVisible" style="font-size:80%"  class="glyphicon glyphicon-trash" ng-click="openDeleteModal(question)"></span>
+	</p>
+</div>
+<div class="question-body">
+	<p ng-show="question.qstInstruction != ''">{{question.qstInstruction}}</p>
+	<input type="text" name="text-{{question.qstNum}}" ng-model="directiveAnswer[0]">
+</div>

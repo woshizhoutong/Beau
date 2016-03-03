@@ -1,0 +1,33 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title">Add option</h4>
+</div>
+<div class="modal-body">
+	<div class='form-group'>
+		<label>Option title</label>
+		<input type="text" class="form-control" ng-model="newOption.optTitle">
+	</div>
+	<div class='form-group'>
+		<label>Option instruction</label>
+		<input type="text" class="form-control" ng-model="newOption.optInstruction">
+	</div>
+	<div class='form-group'>
+		<label>Is this option a jump trigger?</label>
+		<label class="radio-inline" style="padding-right:4px">
+			<input type="radio" ng-value="true" ng-model="newOption.jumpTrg">
+			Yes
+		</label>
+		<label class="radio-inline" style="padding-right:4px">
+			<input type="radio" ng-value="false" ng-model="newOption.jumpTrg">
+			No
+		</label>
+		<label class="radio-inline" style="padding-right:4px" ng-show="showDestinationDropdown">
+			Destination: 
+			<select ng-options="qstNum for qstNum in allQstNumList" ng-model="newOption.jumpQstNum" ng-change="changeDestination()">
+			</select>
+		</label>
+	</div>
+	
+	<input id ="btn_loadChosenTbnresult" type="submit" class="btn btn-default" value="Add" ng-click="addOption()"/>
+	<input id ="btn_cancle" type="button" class="btn btn-default" value="Cancel" ng-click="cancel()"/>
+</div>

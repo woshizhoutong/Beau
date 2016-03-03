@@ -1,0 +1,55 @@
+<div class="question-wrapper">
+	<div ng-switch="question.qstType" class="parent-question-wrapper">
+		<div ng-switch-when="RADIO" class="question-box">
+			<radio-question question="question" binding-answer="answer.parent"></radio-question>
+		</div>
+		
+		<div ng-switch-when="TEXT" class="question-box">
+			<text-question question="question" binding-answer="answer.parent"></text-question>
+		</div>
+		
+		<div ng-switch-when="TEXTAREA" class="question-box">
+			<textarea-question question="question" binding-answer="answer.parent"></textarea-question>
+		</div>
+		
+		<div ng-switch-when="DROPDOWN" class="question-box">
+			<dropdown-question question="question" binding-answer="answer.parent"></dropdown-question>
+		</div>
+		
+		<div ng-switch-when="CHECKBOX" class="question-box">
+			<checkbox-question question="question" binding-answer="answer.parent"></checkbox-question>
+		</div>
+	</div>
+	
+	
+	<div  ng-repeat="childQuestion in question.childQuestionModels | orderBy: 'qstNum'">
+		<div ng-switch="childQuestion.qstType" class="child-question-wrapper">
+			<div ng-switch-when="RADIO" class="question-box">
+				<radio-question question="childQuestion" binding-answer="answer.child[childQuestion.qstNum]"></radio-question>
+			</div>
+			
+			<div ng-switch-when="TEXT" class="question-box">
+				<text-question question="childQuestion" binding-answer="answer.child[childQuestion.qstNum]"></text-question>
+			</div>
+			
+			<div ng-switch-when="TEXTAREA" class="question-box">
+				<textarea-question question="childQuestion" binding-answer="answer.child[childQuestion.qstNum]"></textarea-question>
+			</div>
+			
+			<div ng-switch-when="DROPDOWN" class="question-box">
+				<dropdown-question question="childQuestion" binding-answer="answer.child[childQuestion.qstNum]"></dropdown-question>
+			</div>
+			
+			<div ng-switch-when="CHECKBOX" class="question-box">
+				<checkbox-question question="childQuestion" binding-answer="answer.child[childQuestion.qstNum]"></checkbox-question>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal-footer">
+	    <button ng-show="lastQstNums.length" type="button" class="btn btn-success" ng-click="back()">Back</button>
+	    <button type="button" class="btn btn-primary" ng-click="submitQuestion(answer)">{{isLast ? 'FinalizeInterview' : 'Next'}}</button>
+	    <button class="btn btn-warning" ng-click="stop()">Stop Interview</button>
+	</div>
+	
+</div>

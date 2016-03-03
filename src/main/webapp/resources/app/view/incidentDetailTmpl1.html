@@ -1,0 +1,90 @@
+<div class="panel panel-default"> <!-- Start of General Event Information Panel -->
+	<div class="panel-heading">
+    	<h2 class="panel-title">General Event Information</h2>
+	</div>
+	<div class="panel-body">
+		<div class="form-horizontal">
+        	<fieldset>
+        		<legend>How did you find out about the Near-miss event you are reporting?</legend>
+	        	<div class="form-group">
+	        		<label class="col-sm-3 control-label">Source<span>*</span></label>
+        			<div class="col-sm-9">
+                        <div class="c-form-control-read-only">{{incDetail.sourceOfEvent.label}}</div>
+                        <div ng-if="inc.sourceOfEvent.otherTrigger" class="animate-if">
+                        	<div class="c-form-control-read-only">{{incDetail.sourceOfEventOther}}</div>
+                        </div>
+				    </div>
+			    </div>
+		    </fieldset>
+        	
+        	<fieldset>
+        		<legend>When did the Near-Miss event happen?</legend>
+        		<div class="form-group">
+					<label class="col-sm-3 control-label">Date of Event<span>*</span></label>
+					<div class="col-sm-9">
+						<div class="c-form-control-read-only">{{incDetail.timeOfEvent}}</div>
+					</div>
+				</div>
+        	</fieldset>
+        	
+        	<fieldset>
+        		<legend>Location of Event</legend>
+	        	<div class="form-group" >
+        			<label class="col-sm-3 control-label">Water Depth</label>
+        			<div class="col-sm-3">
+        				<div class="input-group">
+        					<span class="c-form-control-read-only">{{incDetail.waterDepth}}</span><span class="input-group-addon">ft</span>
+			        	</div>
+        			</div>
+       				<label class="col-sm-3 control-label">Mile to Shore</label>
+        			<div class="col-sm-3">
+        				<div class="input-group">
+        					<span class="c-form-control-read-only">{{incDetail.milesToShore}}</span><span class="input-group-addon">m(s)</span>
+			        	</div>
+        			</div>
+			    </div>
+		    </fieldset>
+		    
+		    <fieldset>
+				<legend>Briefly describe the incident in chronological order. Include what happened, work conditions and any other relevant information.</legend>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Description<span>*</span></label>
+					<div class="col-sm-9">
+	        			<span class="c-form-control-read-only">{{incDetail.briefDescription}}</span>
+			    	</div>
+			    </div>
+			</fieldset>
+        	
+        	<fieldset>
+				<legend>Has this kind of near-miss happened before?</legend>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Happened Before?<span>*</span></label>
+					<div class="col-sm-9">{{incDetail.happenedBefore}}
+	        			<div class="radio" >
+					        <label class="c-radio-label"><input type="radio" value="Y" name="happenedBefore" ng-model="$parent.incDetail.happenedBefore" ng-disabled="false"/> Yes (If yes, please tell us about it.) </label>
+					        <label class="c-radio-label"><input type="radio" value="N" name="happenedBefore" ng-model="$parent.incDetail.happenedBefore" ng-disabled="false"/> No </label>
+					        <label class="c-radio-label"><input type="radio" value="DK" name="happenedBefore" ng-model="$parent.incDetail.happenedBefore" ng-disabled="false"/> Don't Know </label>
+			        	</div>
+			    	</div>
+			    </div>
+			    
+			    <div ng-if="incDetail.happenedBefore=='Y'" class="form-group animate-if">
+					<label class="col-sm-3 control-label">Description</label>
+                    <div class="col-sm-9">
+	        			<span class="c-form-control-read-only">{{$parent.incDetail.descriptionOfPreviousEvent}}</span>
+			    	</div>
+			    </div>
+			</fieldset>
+                        
+			<fieldset>
+        		<legend>Further Details: The near-miss event happened during which operation?</legend>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Operation<span>*</span></label>
+					<div class="col-sm-6">
+                        <span class="c-form-control-read-only">{{incDetail.happenedOperation.label}}</span>
+					</div>
+				</div>
+        	</fieldset>
+    	</div>
+   	</div>
+</div> <!-- End of General Event Information Panel -->

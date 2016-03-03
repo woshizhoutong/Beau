@@ -1,0 +1,50 @@
+<div ng-repeat="question in questions">
+	<div class="question-wrapper">
+		<div ng-switch="question.qstType" class="parent-question-wrapper">
+			<div ng-switch-when="RADIO" class="question-box">
+				<radio-question question="question" binding-answer="answers[$index].parent"></radio-question>
+			</div>
+			
+			<div ng-switch-when="TEXT" class="question-box">
+				<text-question question="question" binding-answer="answers[$index].parent"></text-question>
+			</div>
+			
+			<div ng-switch-when="TEXTAREA" class="question-box">
+				<textarea-question question="question" binding-answer="answers[$index].parent"></textarea-question>
+			</div>
+			
+			<div ng-switch-when="DROPDOWN" class="question-box">
+				<dropdown-question question="question" binding-answer="answers[$index].parent"></dropdown-question>
+			</div>
+			
+			<div ng-switch-when="CHECKBOX" class="question-box">
+				<checkbox-question question="question" binding-answer="answers[$index].parent"></checkbox-question>
+			</div>
+		</div>
+		
+		
+		<div  ng-repeat="childQuestion in question.childQuestionModels">
+			<div ng-switch="childQuestion.qstType" class="child-question-wrapper">
+				<div ng-switch-when="RADIO" class="question-box">
+					<radio-question question="childQuestion" binding-answer="answers[$parent.$parent.$index].child[childQuestion.qstNum]"></radio-question>
+				</div>
+				
+				<div ng-switch-when="TEXT" class="question-box">
+					<text-question question="childQuestion" binding-answer="answers[$parent.$parent.$index].child[childQuestion.qstNum]"></text-question>
+				</div>
+				
+				<div ng-switch-when="TEXTAREA" class="question-box">
+					<textarea-question question="childQuestion" binding-answer="answers[$parent.$parent.$index].child[childQuestion.qstNum]"></textarea-question>
+				</div>
+				
+				<div ng-switch-when="DROPDOWN" class="question-box">
+					<dropdown-question question="childQuestion" binding-answer="answers[$parent.$parent.$index].child[childQuestion.qstNum]"></dropdown-question>
+				</div>
+				
+				<div ng-switch-when="CHECKBOX" class="question-box">
+					<checkbox-question question="childQuestion" binding-answer="answers[$parent.$parent.$index].child[childQuestion.qstNum]"></checkbox-question>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

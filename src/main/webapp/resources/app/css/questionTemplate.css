@@ -1,0 +1,30 @@
+.question-wrapper {
+	padding: 0px 20px;
+}
+
+.child-question-wrapper{
+	padding-left: 60px;
+}
+
+.question-header{
+	font-size: 1.1em;
+	padding: 5px 10px;
+ 	background-color: #c0c0c0; 
+	
+}
+.question-body{
+	padding-left: 20px;
+	margin-bottom: 10px;
+}
+
+.question-box{
+	box-shadow: 0 5px 5px rgba(100,100,100,0.15);
+	border: 1px solid #e8e8e8;
+	margin-bottom: 10px;
+	padding: 0
+}
+
+.checkbox, .radio {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}

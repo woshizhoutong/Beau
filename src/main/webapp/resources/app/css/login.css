@@ -1,0 +1,124 @@
+/*================ START- Force every browser to use corder-box box model================================ */
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+/*================ END- Force every browser to use corder-box box model================================ */
+
+
+/*================ START- For ie8 or older================================ */
+.lt-ie9 body{
+	padding-top: 0px;
+}
+/*================ END- For ie8 or older================================ */
+
+
+/*================ START- Style the frame of site================================ */
+html {
+	font-size: 62.5%;
+}
+body {
+	font-size: 1.5em;
+}
+
+.c-page-content {
+	margin-top: 100px;
+}
+
+#account-box {
+	width: 400px;
+	margin: auto;
+	box-shadow: 0 0 15px #000000;
+	border-radius: 7px;
+	overflow: hidden !important;
+	text-align: center;
+}
+
+@media ( max-width : 480px) {
+	#account-box {
+		width: 100%;
+	}
+}
+
+#account-box p {
+	margin-top: 15px;
+	margin-bottom: 10px!important;
+	padding: 0 20px;
+}
+
+@media ( max-width : 400px) {
+	#account-box p {
+		font-size: 12px !important;
+	}
+}
+
+#account-box .form-actions {
+	margin-top: 20px;
+	padding: 5px 20px 15px;
+}
+
+#account-box .form-actions .pull-left {
+	text-align: left;
+}
+
+#account-box .form-actions .pull-right {
+	text-align: right;
+}
+
+
+
+
+
+#user {
+	width: 400px;
+	margin: auto;
+	text-align: center;
+	display: none;
+	/* opacity: 0; */
+}
+
+#user .avatar {
+	width: 75px;
+	margin: auto;
+	overflow: hidden;
+	border-radius: 40px;
+	border: 2px solid #ffffff;
+	box-shadow: 0 1px 15px #000000;
+	background-image: -moz-linear-gradient(-55deg, rgba(255, 255, 255, 0.7)
+		0%, transparent 100%);
+}
+
+
+
+
+
+
+.input-group {
+	padding: 0 20px 5px;
+}
+
+.btn-inverse {
+	color: #ffffff;
+	background-color: #555555;
+	border-color: #494949;
+}
+
+.btn-inverse:hover,.btn-inverse:focus,.btn-inverse:active,.btn-inverse.active,.open .dropdown-toggle.btn-inverse
+	{
+	color: #ffffff;
+	background-color: #414141;
+	border-color: #2a2a2a;
+}
+
+.btn-inverse:active,.btn-inverse.active,.open .dropdown-toggle.btn-inverse
+	{
+	background-image: none;
+}
+
+.btn-inverse.disabled,.btn-inverse[disabled],fieldset[disabled] .btn-inverse,.btn-inverse.disabled:hover,.btn-inverse[disabled]:hover,fieldset[disabled] .btn-inverse:hover,.btn-inverse.disabled:focus,.btn-inverse[disabled]:focus,fieldset[disabled] .btn-inverse:focus,.btn-inverse.disabled:active,.btn-inverse[disabled]:active,fieldset[disabled] .btn-inverse:active,.btn-inverse.disabled.active,.btn-inverse[disabled].active,fieldset[disabled] .btn-inverse.active
+	{
+	background-color: #555555;
+	border-color: #494949;
+}

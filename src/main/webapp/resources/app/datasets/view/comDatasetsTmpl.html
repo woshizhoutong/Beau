@@ -1,0 +1,111 @@
+<div class="c-content-wrapper">
+	<div class="c-content-heading">
+		<p>Uploaded Datasets</p>
+	</div>
+	<div class="c-content-body">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="panel-title">New Uploaded Datasets</div>
+			</div>
+			<div ng-switch="newUploaded.length" class="panel-body">
+				<p ng-switch-when="0">There is no new uploaded datasets.</p>
+				<table ng-switch-default st-table="newUploaded" class="table table-striped">
+					<thead>
+			  			<tr>
+			      			<th st-sort="metadata.fileName">Metadata Name</th>
+			      			<th st-sort="name">File</th>
+			      			<th st-sort="user.name">Uploaded By</th>
+			      			<th st-sort="dateCreated">Upload Date</th>
+			      			<th st-sort="size">Size</th>
+			      		</tr>
+			      		<tr>
+							<th>
+								<input st-search="metadata.fileName" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="user.name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="dataset in newUploaded">
+							<td>{{dataset.metadata.fileName}}</td>
+							<td>
+								<!-- <a href="" ng-click="download(dataset.id)" download="{{dataset.name}}">
+									{{dataset.name}}
+								</a> -->
+								<a href="/ccpm/dataset/download/{{dataset.id}}" download="{{dataset.name}}">
+									{{dataset.name}}
+								</a>
+							</td>
+							<td>{{dataset.user.name}}</td>
+							<td>{{dataset.dateCreated | date: 'yyyy-MM-dd HH:mm'}}</td>
+							<td>{{dataset.size}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">Downloaded Datasets</div>
+			</div>
+			<div ng-switch="datasets.length" class="panel-body">
+				<p ng-switch-when="0">There is no downloaded dataset.</p>
+				<table ng-switch-default st-table="datasets" class="table table-striped">
+					<thead>
+			  			<tr>
+			      			<th st-sort="metadata.fileName">Metadata Name</th>
+			      			<th st-sort="name">File</th>
+			      			<th st-sort="user.name">Uploaded By</th>
+			      			<th st-sort="dateCreated">Upload Date</th>
+			      			<th st-sort="size">Size</th>
+			      			<th></th>
+			      		</tr>
+			      		<tr>
+							<th>
+								<input st-search="metadata.fileName" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="user.name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="dataset in datasets">
+							<td>{{dataset.metadata.fileName}}</td>
+							<td>
+								<a href="/ccpm/dataset/download/{{dataset.id}}" download="{{dataset.name}}">
+									{{dataset.name}}
+								</a>
+							</td>
+							<td>{{dataset.user.name}}</td>
+							<td>{{dataset.dateCreated | date: 'yyyy-MM-dd HH:mm'}}</td>
+							<td>{{dataset.size}}</td>
+							<td>
+								<button type="button" class="btn btn-danger btn-xs" ng-click="remove(dataset)" ng-disabled="!hasDeleteAuth">
+									<span class="glyphicon glyphicon-minus-sign"></span> Delete
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+</div>

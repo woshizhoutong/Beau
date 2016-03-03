@@ -1,0 +1,20 @@
+<div class="question-header" ng-mouseenter="showEditQuestion()" ng-mouseleave="hideEditQuestion()">
+	<p>{{question.qstNum}}. {{question.qstTitle}} (DROPDOWN)
+		<span ng-show="editQuestionVisible && !isChildQuestion" style="font-size:80%" class="glyphicon glyphicon-plus-sign" ng-click="openAddChildQuestionModal()"></span> 
+		<span ng-show="editQuestionVisible" style="font-size:80%" class="glyphicon glyphicon-plus" ng-click="openAddOptionModal()"></span> 
+		<span ng-show="editQuestionVisible" style="font-size:80%" class="glyphicon glyphicon-pencil" ng-click="openEditQuestionModal()"></span> 
+		<span ng-show="editQuestionVisible" style="font-size:80%"  class="glyphicon glyphicon-trash" ng-click="openDeleteModal('question')"></span>
+	</p>
+</div>
+<div class="question-body">
+	<p ng-show="question.qstInstruction != ''">{{question.qstInstruction}}</p>
+	<div ng-class="{'highlightDropDownOption': makeHighlight == true}" ng-mouseenter="showEdit()" ng-mouseleave="hideEdit()">
+		<select ng-options="option.optTitle for option in question.editOptionModels" ng-model="showAnswer" ng-change="fetchAnswer()">
+			<option value="">-- --</option>
+		</select>
+		<span ng-show="editOptionVisible && orderUp"  class="glyphicon glyphicon-arrow-up" ng-click="moveOptionShowOrderUp()"></span>
+		<span ng-show="editOptionVisible && orderDown"  class="glyphicon glyphicon-arrow-down" ng-click="moveOptionShowOrderDown()"></span>
+		<span ng-show="editOptionVisible"  class="glyphicon glyphicon-pencil" ng-click="openEditOptionModal()"></span>
+		<span ng-show="editOptionVisible"  class="glyphicon glyphicon-trash" ng-click="openDeleteModal('option')"></span>
+	</div>
+</div>

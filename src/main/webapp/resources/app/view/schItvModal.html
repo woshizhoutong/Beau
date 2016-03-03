@@ -1,0 +1,63 @@
+<div class="modal-header">
+    <h1 class="modal-title">Schedule Interview for Report {{confirmationId}}</h1>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Date<span>*</span></label>
+			<div class="col-sm-5">
+				<p class="input-group">
+	              	<input type="text" class="form-control" ng-model="itvVM.scheduledStartDate" is-open="stdOpened" min-date="stdMinDate" max-date="stdMaxDate" date-disabled="stdDisabled(date, mode)" datepicker-options="dateOptions" datepicker-popup="MM/dd/yyyy" ng-required="true"/>
+	              	<span class="input-group-btn">
+	                	<button type="button" class="btn btn-default" ng-click="stdOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+	              	</span>
+            	</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Time<span>*</span></label>
+			<div class="col-sm-5">
+				<timepicker ng-model="itvVM.scheduledStartTime" ng-change="changed()" hour-step="1" minute-step="10" show-spinners="false"></timepicker>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Time Zone<span>*</span></label>
+			<div class="col-sm-5">
+		      	<select selectpicker class="selectpicker form-control" ng-model="itvVM.scheduledTimezone" ng-options="i.label for i in timezones">
+                	<option value="">-- choose one --</option>
+                </select>
+			</div>
+		</div>
+		<!-- <div class="form-group">
+  			<label class="col-sm-3 control-label">Duration<span>*</span></label>
+  			<div class="col-sm-5">
+        		<input type="text" class="form-control" ng-model="itvVM.duration"/>
+  			</div>
+		</div> -->
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Interviewer<span>*</span></label>
+			<div class="col-sm-5">
+		      	<select selectpicker class="selectpicker form-control" ng-model="itvVM.interviewer" ng-options="i.name for i in interviewers">
+                	<option value="">-- choose one --</option>
+                </select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Scriber<span>*</span></label>
+			<div class="col-sm-5">
+		      	<select selectpicker class="selectpicker form-control" ng-model="itvVM.scriber" ng-options="i.name for i in scribers">
+                	<option value="">-- choose one --</option>
+                </select>
+			</div>
+		</div>
+	</form>
+	date: {{itvVM.scheduledStartDate}}
+	time: {{itvVM.scheduledStartTime}}
+	timezone: {{itvVM.scheduledTimezone}}
+	interviewer: {{itvVM.interviewer}}
+	scriber: {{itvVM.scriber}}
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="schItv()">Schedule Interview</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

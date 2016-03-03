@@ -1,0 +1,188 @@
+<div class="c-content-wrapper">
+	<div class="c-content-heading">
+		<p>Company Data Portal User Management</p>
+	</div>
+	<div class="c-content-body">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="panel-title">New Account Requests</div>
+			</div>
+			<div ng-switch="newRequests.length" class="panel-body">
+				<p ng-switch-when="0">There is no new request.</p>
+				<table ng-switch-default st-table="newRequests" class="table table-striped">
+					<thead class="well">
+			  			<tr>
+			      			<th st-sort="name">Name</th>
+			      			<th st-sort="email">Email</th>
+			      			<th st-sort="company.name">Company</th>
+			      			<th></th>
+			      			<th></th>
+			      		</tr>
+			      		<tr>
+							<th>
+								<input st-search="name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="email" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="company.name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="user in newRequests">
+							<td>{{user.name}}</td>
+							<td>{{user.email}}</td>
+							<td>{{user.company.name}}</td>
+							<td>
+								<button type="button" class="btn btn-success btn-xs" ng-click="viewRequest(user)">
+									<span class="glyphicon glyphicon-eye-open"></span> View
+								</button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-primary btn-xs" ng-click="process(user)" 
+								ng-disabled="!hasUpdateAuth"
+								uib-tooltip="Approve or reject user's account request." 
+								tooltip-placement="top" 
+								tooltip-trigger="mouseenter">
+									<span class="glyphicon glyphicon-cog"></span> Process
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">Existing Users</div>
+			</div>
+			<div ng-switch="existingUsers.length" class="panel-body">
+				<p ng-switch-when="0">There is no existing user.</p>
+				<table ng-switch-default st-table="existingUsers" class="table table-striped">
+					<thead>
+			  			<tr>
+			      			<th st-sort="name">Name</th>
+			      			<th st-sort="email">Email</th>
+			      			<th st-sort="company.name">Company</th>
+			      			<th st-sort="enabled">Enabled</th>
+			      			<th></th>
+			      			<th></th>
+			      			<th></th>
+			      		</tr>
+			      		<tr>
+							<th>
+								<input st-search="name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="email" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="company.name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="user in existingUsers" ng-class="{'danger': !user.enabled}">
+							<td>{{user.name}}</td>
+							<td>{{user.email}}</td>
+							<td>{{user.company.name}}</td>
+							<td>{{user.enabled}}</td>
+							<td>
+								<button type="button" class="btn btn-success btn-xs" ng-click="view(user)">
+									<span class="glyphicon glyphicon-eye-open"></span> View
+								</button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-info btn-xs" ng-click="edit(user)" ng-disabled="!hasUpdateAuth">
+									<span class="glyphicon glyphicon-edit"></span> Edit
+								</button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-danger btn-xs" ng-click="remove(user)" ng-disabled="!hasUpdateAuth">
+									<span class="glyphicon glyphicon-minus-sign"></span> Delete
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">Existing Companies</div>
+			</div>
+			<div ng-switch="companies.length" class="panel-body">
+				<p ng-switch-when="0">There is no existing company.</p>
+				<table ng-switch-default st-table="companies" class="table table-striped">
+					<thead>
+			  			<tr>
+			      			<th st-sort="name">Name</th>
+			      			<th st-sort="createdDate">Created Date</th>
+			      			<th st-sort="metadataDefined">Metadata Defined</th>
+			      			<th st-sort="metadataVersionNumber">Metadata Version</th>
+			      			<th st-sort="enabled">Enabled</th>
+			      			<th></th>
+			      			<th></th>
+			      			<th></th>
+			      		</tr>
+			      		<tr>
+							<th>
+								<input st-search="name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="createdDate" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="metadataDefined" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="metadataVersionNumber" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="company in companies" ng-class="{'danger': !company.enabled}">
+							<td>{{company.name}}</td>
+							<td>{{company.createdDate | date: 'yyyy-MM-dd HH:mm'}}</td>
+							<td>{{company.metadataDefined}}</td>
+							<td>{{company.metadataVersionNumber}}</td>
+							<td>{{company.enabled}}</td>
+							<td>
+								<button type="button" class="btn btn-success btn-xs" ng-click="viewCompany(company)">
+									<span class="glyphicon glyphicon-eye-open"></span> View
+								</button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-info btn-xs" ng-click="editCompany(company)" ng-disabled="!hasUpdateAuth">
+									<span class="glyphicon glyphicon-edit"></span> Edit
+								</button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-danger btn-xs" ng-click="removeCompany(company.id)" ng-disabled="!hasUpdateAuth">
+										<span class="glyphicon glyphicon-minus-sign"></span> Delete
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="button" class="btn btn-info btn-xs c-add-btn" ng-click="addCompany()" ng-disabled="!hasUpdateAuth">
+					<span class="glyphicon glyphicon-plus-sign"></span> Add Company
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

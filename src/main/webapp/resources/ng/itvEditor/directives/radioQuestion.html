@@ -1,0 +1,27 @@
+<div class="question-header" ng-mouseenter="showEditQuestion()" ng-mouseleave="hideEditQuestion()">
+	<p>{{question.qstNum}}. {{question.qstTitle}} (RADIO)
+		<span ng-show="editQuestionVisible && !isChildQuestion" style="font-size:80%" class="glyphicon glyphicon-plus-sign" ng-click="openAddChildQuestionModal()"></span> 
+		<span ng-show="editQuestionVisible" style="font-size:80%" class="glyphicon glyphicon-plus" ng-click="openAddOptionModal()"></span> 
+		<span ng-show="editQuestionVisible" style="font-size:80%" class="glyphicon glyphicon-pencil" ng-click="openEditQuestionModal()"></span> 
+		<span ng-show="editQuestionVisible" style="font-size:80%"  class="glyphicon glyphicon-trash" ng-click="openDeleteModal(question, 'question')"></span>
+	</p>
+</div>
+<div class="question-body">
+	<p ng-show="question.qstInstruction != ''">{{question.qstInstruction}}</p>
+	<ul>
+		<li ng-repeat="option in question.editOptionModels | orderBy: 'showOrder'" ng-class="{'highlightOption': option.optNum == highlightOptNum}">
+			<div ng-mouseenter="showEdit(option.optNum)" ng-mouseleave="hideEdit(option.optNum)">
+				<label class="radio-inline" style="padding-right:4px">
+					<input type="radio" name="radio-{{question.qstNum}}" value="{{option.optNum}}"  ng-model="$parent.showAnswer" ng-change="fetchAnswer()">
+					{{option.optTitle}} ({{option.optInstruction}})  
+				</label>
+				<span ng-show="editOptionVisible[option.optNum] && orderUp[option.optNum]"  class="glyphicon glyphicon-arrow-up" ng-click="moveOptionShowOrderUp(option)"></span>
+				<span ng-show="editOptionVisible[option.optNum] && orderDown[option.optNum]"  class="glyphicon glyphicon-arrow-down" ng-click="moveOptionShowOrderDown(option)"></span>
+				<span ng-show="editOptionVisible[option.optNum]"  class="glyphicon glyphicon-pencil" ng-click="openEditOptionModal(option)"></span>
+				<span ng-show="editOptionVisible[option.optNum]"  class="glyphicon glyphicon-trash" ng-click="openDeleteModal(option, 'option')"></span>
+			</div>
+		</li>
+	</ul>
+</div>
+
+

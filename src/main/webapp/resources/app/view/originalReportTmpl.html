@@ -1,0 +1,939 @@
+<div class="c-original-report c-content-wrapper">
+	<table class="table c-content-heading">
+		<tr>
+			<th>
+				Report: <Strong>{{oriRpt.confirmationId}}</Strong>
+			</th>
+			<th>
+				Status: <strong ng-class="{'text-primary' : oriRpt.status.value=='ACCEPTED', 'text-danger' : oriRpt.status.value=='REJECTED'}">{{oriRpt.status.label}}</strong>
+			</th>
+		</tr>
+	</table>
+	<div class="c-content-tool-bar">
+		<button ng-show="oriRpt.status.value=='NEWLY_SUBMITTED'" type="button" class="btn btn-primary btn-sm" ng-click="acceptOriRpt()" 
+		tooltip="Accept this Report." tooltip-placement="top" tooltip-trigger="mouseenter">
+			<span class="glyphicon glyphicon-ok"></span> Accept
+		</button>
+		<button ng-show="oriRpt.status.value=='NEWLY_SUBMITTED'" type="button" class="btn btn-warning btn-sm" ng-click="rejectOriRpt()" 
+		tooltip="Reject this Report." tooltip-placement="top" tooltip-trigger="mouseenter">
+			<span class="glyphicon glyphicon-remove"></span> Reject
+		</button>
+		<button type="button" class="btn btn-default btn-sm" ng-click=""><span class="glyphicon glyphicon-print"></span> Print</button>
+		<button type="button" class="btn btn-danger btn-sm" ng-click=""><span class="glyphicon glyphicon-trash"></span> Delete</button>
+	</div>
+	
+	<div class="c-content-body">
+		<div class="panel"> <!-- Start of Reporter Information Panel -->
+			<div class="panel-heading">
+		    	<h2 class="panel-title">Reporter Information</h2>
+			</div>
+			<div class="panel-body">
+		        <div class="form-horizontal">
+		        	<fieldset>
+		        		<legend>Your Name</legend>
+			        	<div class="form-group" >
+			        		<div class="group">
+			        			<label class="col-sm-3 control-label">First name<span>*</span></label>
+			        			<div class="col-sm-3">
+						        	<input type="text" class="form-control" ng-model="oriRpt.firstName" ng-disabled="!editable"/>
+			        			</div>
+		        			</div>
+		        			<div class="group">
+		        				<label class="col-sm-2 control-label">Last name<span>*</span></label>
+			        			<div class="col-sm-3">
+						        	<input type="text" class="form-control" ng-model="oriRpt.lastName" ng-disabled="!editable"/>
+			        			</div>
+		        			</div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+						<legend>Contact Information</legend>
+					    <div class="form-group">
+		                       <div class="col-sm-9 col-sm-offset-3">
+		                           <div class="checkbox">
+		                           	<label>
+		                                <input type="checkbox" ng-model="oriRpt.mayContact" ng-disabled="!editable"/> We may contact you for a brief confidential interview.
+		                          		</label>
+		                           </div>
+		                       </div>
+		                   </div>
+		                         
+						<div ng-if="oriRpt.mayContact">
+			        		<div class="form-group">
+			        			<label class="col-sm-3 control-label">Phone Number<span>*</span></label>
+			        			<div class="col-sm-5">
+								    <input type="text" class="form-control" ng-model="oriRpt.phone" ng-disabled="!editable"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Best Time To Call<span>*</span></label>
+								<div class="col-sm-8">
+									<div class="c-dateTimeRangePart">
+										<timepicker ng-model="oriRpt.bestTimeToCallStart" ng-change="changed()" hour-step="1" minute-step="10" show-spinners="false" ng-disabled="!editable"></timepicker>
+									</div>
+									<div class="c-dateTimeRangeTo">to</div>
+									<div class="c-dateTimeRangePart">
+										<timepicker ng-model="oriRpt.bestTimeToCallEnd" ng-change="changed()" hour-step="1" minute-step="10" show-spinners="false" ng-disabled="!editable"></timepicker>
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Time Zone<span>*</span></label>
+								<div class="col-sm-3">
+									<select selectpicker class="selectpicker form-control" ng-model="oriRpt.bestTimeToCallTimezone" ng-options="i.label for i in timezones" ng-disabled="!editable">
+			                            <option value="">-- choose one --</option>
+			                        </select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Best Date To Call<span>*</span></label>
+								<div class="col-sm-8">
+									<div class="c-dateTimeRangePart c-dateRangPart">
+										<p class="input-group">
+							              	<input type="text" class="form-control" ng-model="oriRpt.bestDateToCallStart" is-open="$parent.bdtcStartOpened" min-date="bdtcStartMinDate" max-date="bdtcStartMaxDate" date-disabled="bdtcDisabled(date, mode)" datepicker-options="dateOptions" datepicker-popup="MM/dd/yyyy" ng-required="true" ng-disabled="!editable"/>
+							              	<span class="input-group-btn">
+							                	<button type="button" class="btn btn-default" ng-click="bdtcStartOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							              	</span>
+						            	</p>
+								    </div>
+								    <div class="c-dateTimeRangeTo">to</div>
+								    <div class="c-dateTimeRangePart c-dateRangPart">
+							    		<p class="input-group">
+							              	<input type="text" class="form-control" ng-model="oriRpt.bestDateToCallEnd" is-open="$parent.bdtcEndOpened" min-date="bdtcEndMinDate" max-date="bdtcEndMaxDate" date-disabled="bdtcDisabled(date, mode)" datepicker-options="dateOptions" datepicker-popup="MM/dd/yyyy" ng-required="true" ng-disabled="!editable"/>
+							              	<span class="input-group-btn">
+							                	<button type="button" class="btn btn-default" ng-click="bdtcEndOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+							              	</span>
+						            	</p>
+									</div>
+						      	</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Can Leave Message?</label>
+		                              <div class="col-sm-9">
+		                                  <div class="checkbox">
+		                                  	<label>
+		                                       <input type="checkbox" ng-model="oriRpt.canLeaveMessage" ng-disabled="!editable"/> BTS can leave a voice mail message when call me.
+		                                 		</label>
+		                                  </div>
+		                              </div>
+		                          </div>
+		                          <div class="form-group">
+								<label class="col-sm-3 control-label">Comment</label>
+		                              <div class="col-sm-8">
+		                                  <input type="text" class="form-control" ng-model="oriRpt.callComment" ng-disabled="!editable"/>
+		                              </div>
+		                          </div>
+		                      </div>
+					</fieldset>
+												
+					<fieldset>
+						<legend>I Work In</legend>
+			        	<div class="form-group">
+		        			<label class="col-sm-3 control-label">Operation<span>*</span></label>
+		        			<div class="col-sm-6">
+		        				<select selectpicker class="selectpicker form-control" ng-model="oriRpt.operation" ng-options="i.label for i in operations" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.operation.otherTrigger" class="animate-if">
+		                        	<input type="text" class="form-control" ng-model="oriRpt.operationOther" ng-disabled="!editable"/>
+		                        </div>
+						    </div>
+					    </div>
+					    
+		        		<div class="form-group">
+		        			<label class="col-sm-3 control-label">Job Position<span>*</span></label>
+		        			<div class=" col-sm-8" >
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.jobPosition" ng-options="i.label for i in jobPositions" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.jobPosition.otherTrigger" class="animate-if">
+		                        	<input type="text" class="form-control" ng-model="oriRpt.jobPositionOther" ng-disabled="!editable"/>
+		                        </div>
+						    </div>
+					    </div>
+		        	</fieldset>
+					
+					<fieldset>
+						<legend>Work Experience In Oil And Gas</legend>
+			        	<div class="form-group" >
+			        		<div class="group">
+			        			<label class="col-sm-3 control-label">Year(s)<span>*</span></label>
+			        			<div class="col-sm-3">
+			        				<div class="input-group">
+			        					<input type="text" class="form-control" ng-model="oriRpt.workExpYear" ng-disabled="!editable"/><span class="input-group-addon">y(s)</span>
+						        	</div>
+			        			</div>
+		        			</div>
+		        			<div class="group">
+		        				<label class="col-sm-2 control-label">Month(s)<span>*</span></label>
+			        			<div class="col-sm-3">
+			        				<div class="input-group">
+						        		<input type="text" class="form-control" ng-model="oriRpt.workExpMonth" ng-disabled="!editable"/><span class="input-group-addon">m(s)</span>
+						        	</div>
+			        			</div>
+		        			</div>
+					    </div>
+				    </fieldset>
+		    	</div>
+			</div> <!-- End of Panel Body-->
+		</div> <!-- End of Reporter Information Panel -->
+		
+		<div class="panel"> <!-- Start of General Event Information Panel -->
+			<div class="panel-heading">
+		    	<h2 class="panel-title">General Event Information</h2>
+			</div>
+			<div class="panel-body">
+				<div class="form-horizontal">
+		        	<fieldset>
+		        		<legend>How did you find out about the Near-miss event you are reporting?</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Source<span>*</span></label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.sourceOfEvent" ng-options="i.label for i in sourceOfEvents" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.sourceOfEvent.otherTrigger" class="animate-if">
+		                        	<input type="text" class="form-control" ng-model="oriRpt.sourceOfEventOther" ng-disabled="!editable"/>
+		                        </div>
+						    </div>
+					    </div>
+				    </fieldset>
+		        	
+		        	<fieldset>
+		        		<legend>When did the Near-Miss event happen?</legend>
+		        		<div class="form-group">
+							<label class="col-sm-3 control-label">Date of Event<span>*</span></label>
+							<div class="col-sm-5">
+								<p class="input-group">
+					              	<input type="text" class="form-control" ng-model="oriRpt.timeOfEvent" is-open="doeOpened" max-date="doeMaxDate" datepicker-options="dateOptions" datepicker-popup="MM/dd/yyyy" ng-required="true" ng-disabled="!editable"/>
+					              	<span class="input-group-btn">
+					                	<button type="button" class="btn btn-default" ng-click="doeOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					              	</span>
+				            	</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Time of Event<span>*</span></label>
+							<div class="col-sm-5">
+								<timepicker ng-model="oriRpt.timeOfEvent" ng-change="changed()" hour-step="1" minute-step="10" show-spinners="false" ng-disabled="!editable"></timepicker>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Timezone</label>
+							<div class="col-sm-3">
+						      	<select selectpicker ng-model="oriRpt.timeOfEventTimezone" ng-options="i.label for i in timezones" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+							</div>
+						</div>
+		        	</fieldset>
+		        	
+		        	<fieldset>
+		        		<legend>Location of Event</legend>
+			        	<div class="form-group" >
+		        			<label class="col-sm-3 control-label">Water Depth</label>
+		        			<div class="col-sm-3">
+		        				<div class="input-group">
+					        		<input type="text" class="form-control" ng-model="oriRpt.waterDepth" ng-disabled="!editable"/><span class="input-group-addon">ft</span>
+					        	</div>
+		        			</div>
+		       				<label class="col-sm-3 control-label">Mile to Shore</label>
+		        			<div class="col-sm-3">
+		        				<div class="input-group">
+		        					<input type="text" class="form-control" ng-model="oriRpt.milesToShore" ng-disabled="!editable"/><span class="input-group-addon">m(s)</span>
+					        	</div>
+		        			</div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+						<legend>Briefly describe the incident in chronological order. Include what happened, work conditions and any other relevant information.</legend>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Description<span>*</span></label>
+							<div class="col-sm-9">
+			        			<textarea class="form-control brf-des" ng-model="oriRpt.briefDescription" ng-disabled="!editable"></textarea>
+					    	</div>
+					    </div>
+					</fieldset>
+		        	
+		        	<fieldset>
+						<legend>Has this kind of near-miss happened before?</legend>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Happened Before?<span>*</span></label>
+							<div class="col-sm-9">
+			        			<div class="radio" >
+							        <label class="c-radio-label"><input type="radio" value="Y" name="happenedBefore" ng-model="oriRpt.happenedBefore" ng-disabled="!editable"/> Yes (If yes, please tell us about it.) </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="happenedBefore" ng-model="oriRpt.happenedBefore" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="happenedBefore" ng-model="oriRpt.happenedBefore" ng-disabled="!editable"/> Don't Know </label>
+					        	</div>
+					    	</div>
+					    </div>
+					    
+					    <div ng-if="oriRpt.happenedBefore=='Y'" class="form-group animate-if">
+							<label class="col-sm-3 control-label">Description</label>
+		                    <div class="col-sm-9">
+			        			<textarea class="form-control brf-des-prev-evt" ng-model="oriRpt.descriptionOfPreviousEvent" ng-disabled="!editable"></textarea>
+					    	</div>
+					    </div>
+					</fieldset>
+		                        
+					<fieldset>
+		        		<legend>Further Details: The near-miss event happened during which operation?</legend>
+			        	<div class="form-group">
+							<div class="col-sm-9 col-sm-offset-3">
+								<em>Note: To fill out the appropriate form, please respond to the following statement. </em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Operation<span>*</span></label>
+							<div class="col-sm-6">
+						      	<select selectpicker ng-model="oriRpt.happenedOperation" ng-options="i.label for i in operations" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+							</div>
+						</div>
+		        	</fieldset>
+		    	</div>
+		   	</div>
+		</div> <!-- End of General Event Information Panel -->
+			
+		<div ng-if="oriRpt.happenedOperation.value=='RIG_OPERATIONS'" class="panel animate-if"> <!-- Start of Rig Operation Panel -->
+			<div class="panel-heading">
+		    	<h2 class="panel-title">Rig Operations</h2>
+			</div>
+			<div class="panel-body">
+				<div class="form-horizontal">
+		        	<fieldset>
+		        		<legend>What is the Rig Type?</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Rig Type</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.rigType" ng-options="i.label for i in rigTypes" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.rigType.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.rigTypeOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+						    </div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+		        		<legend>What is the Rig Components/Location on Rig?</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Components/Location</label>
+		        			<div class="col-sm-8">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.rigComponent" ng-options="i.label for i in rigComponents" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.rigComponent.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.rigComponentOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+				    </fieldset>
+		        	
+		        	<fieldset>
+		        		<legend>Did the Near-Miss involve Lifting or Hoisting?</legend>
+			        	<div class="form-group">
+							<div class="col-sm-9 col-sm-offset-3">
+								<em>Note: If yes, please fill out the lifting and hoisting form on next page.</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Lifting and Hoisting<span>*</span></label>
+							<div class="col-sm-9">
+			        			<div class="radio" >
+							        <label class="c-radio-label"><input type="radio" value="Y" name="rigLahInvolved" ng-model="oriRpt.rigLahInvolved" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="rigLahInvolved" ng-model="oriRpt.rigLahInvolved" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="rigLahInvolved" ng-model="oriRpt.rigLahInvolved" ng-disabled="!editable"/> Don't Know </label>
+					        	</div>
+							</div>
+						</div>
+		        	</fieldset>
+		    	</div>
+			</div>
+		</div> <!-- End of Rig Operation Panel -->
+			
+		
+		<div ng-if="oriRpt.happenedOperation.value=='PRODUCTION_OPERATIONS'" class="panel animate-if"> <!-- Start of Production Operation Panel -->
+			<div class="panel-heading">
+		    	<h2 class="panel-title">Production Opreations</h2>
+			</div>
+			<div class="panel-body">
+				<div class="form-horizontal">
+		        	<fieldset>
+		        		<legend>What is the Platform/Facility Type?</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Platform/Facility Type</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.platformType" ng-options="i.label for i in platformTypes" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.platformType.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.platformTypeOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+		        		<div ng-if="oriRpt.platformType.value=='FLOATING'" class="form-group animate-if">
+		        			<label class="col-sm-3 control-label">Sub Platform Type</label>
+		        			<div class=" col-sm-8" >
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.platformTypeSub" ng-options="i.label for i in platformTypeSubs" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.platformTypeSub.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.platformTypeSubOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+						    </div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+		                         <legend>Is the facility Manned or Unmanned?</legend>
+		                         <div class="form-group">
+		                         	<label class="col-sm-3 control-label">Manned?</label>
+		                         	<div class="col-sm-9">
+			        			<div class="radio" >
+							        <label class="c-radio-label"><input type="radio" value="Y" name="manned" ng-model="oriRpt.manned" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="manned" ng-model="oriRpt.manned" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="manned" ng-model="oriRpt.manned" ng-disabled="!editable"/> Don't Know </label>
+					        	</div>
+					    	</div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+		        		<legend>What is the Location on Platform/Facility?</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Location</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.locationOnPlatform" ng-options="i.label for i in locationOnPlatforms" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.locationOnPlatform.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.locationOnPlatformOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+				    </fieldset>
+				    				        	
+		        	<fieldset>
+		        		<legend>Did the Near-Miss involve Lifting or Hoisting?</legend>
+			        	<div class="form-group">
+							<div class="col-sm-9 col-sm-offset-3">
+								<em>Note: If yes, please fill out the lifting and hoisting form on next page.</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Lifting and Hoisting<span>*</span></label>
+							<div class="col-sm-9">
+			        			<div class="radio" >
+							        <label class="c-radio-label"><input type="radio" value="Y" name="productionLahInvolved" ng-model="oriRpt.productionLahInvolved" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="productionLahInvolved" ng-model="oriRpt.productionLahInvolved" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="productionLahInvolved" ng-model="oriRpt.productionLahInvolved" ng-disabled="!editable"/> Don't Know </label>
+			        			</div>
+							</div>
+						</div>
+		        	</fieldset>
+		    	</div>
+			</div>
+		</div> <!-- End of Production Operation Panel -->
+		
+		
+		<div ng-if="oriRpt.happenedOperation.value=='PIPELINE_OPERATIONS'" class="panel animate-if"> <!-- Start of Pipeline Operation Panel -->
+			<div class="panel-heading">
+		    	<h2 class="panel-title">Pipeline Operations</h2>
+			</div>
+			<div class="panel-body">
+				<div class="form-horizontal">
+		        	<fieldset>
+		        		<legend>Pipeline Identifying Information</legend>
+			        	<div class="form-group" >
+			        		<div class="group">
+			        			<label class="col-sm-3 control-label">Operator Name</label>
+			        			<div class="col-sm-3">
+						        	<input type="text" class="form-control" ng-model="oriRpt.pipelineOperatorName" ng-disabled="!editable"/>
+			        			</div>
+		        			</div>
+		        			<div class="group">
+		        				<label class="col-sm-3 control-label">Pipeline Diameter</label>
+			        			<div class="col-sm-3">
+						        	<input type="text" class="form-control" ng-model="oriRpt.pipelineDiameter" ng-disabled="!editable"/>
+			        			</div>
+		        			</div>
+					    </div>
+				    </fieldset>
+		        	
+		        	<fieldset>
+		        		<legend>what material was in pipeline?</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Material in Pipeline</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.materialInPipeline" ng-options="i.label for i in materialInPipelines" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.materialInPipeline.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.materialInPipelineOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+		        		<legend>Was the pipeline in H2s service?</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">H2S Service</label>
+		        			<div class="col-sm-9">
+			        			<div class="radio" >
+			        				<label class="c-radio-label"><input type="radio" value="Y" name="h2sService" ng-model="oriRpt.h2sService" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="h2sService" ng-model="oriRpt.h2sService" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="h2sService" ng-model="oriRpt.h2sService" ng-disabled="!editable"/> Don't Know </label> 
+					        	</div>
+					    	</div>
+					    </div>
+				    </fieldset>
+				    
+				    <!-- <fieldset>
+					    <c:set var="containsOnSeaFloor" value="false" />
+					    <c:set var="containsOnRiser" value="false" />
+					    <c:set var="containsSplashZone" value="false" />
+					    <c:set var="containsSurfaceTieIn" value="false" />
+					    <c:set var="containsSubsurfaceTieIn" value="false" />
+					    <c:set var="containsOther" value="false" />
+						<c:forEach var="item" items="${plOprModel.environmentOfOperations}">
+							<c:choose>
+								<c:when test="${item eq 'ON_SEA_FLOOR'}">
+									<c:set var="containsOnSeaFloor" value="true" />
+								</c:when>
+								<c:when test="${item eq 'ON_RISER'}">
+									<c:set var="containsOnRiser" value="true" />
+								</c:when>
+								<c:when test="${item eq 'SPLASH_ZONE'}">
+									<c:set var="containsSplashZone" value="true" />
+								</c:when>
+								<c:when test="${item eq 'SURFACE_TIE_IN'}">
+									<c:set var="containsSurfaceTieIn" value="true" />
+								</c:when>
+								<c:when test="${item eq 'SUBSURFACE_TIE_IN'}">
+									<c:set var="containsSubsurfaceTieIn" value="true" />
+								</c:when>
+								<c:when test="${item eq 'OTHER'}">
+									<c:set var="containsOther" value="true" />
+								</c:when>
+							</c:choose>
+						  <%-- <c:if test="${item eq 'OTHER'}">
+						    <c:set var="containsOther" value="true" />
+						  </c:if> --%>
+						</c:forEach>
+		        		<legend>Pipeline Activity Equipment</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Environment</label>
+		        			<div class="col-sm-6">
+							    <c:forEach var="item" items="${eooList}">
+		       					<div class="checkbox">
+		       						<label class="c-radio-label">
+		       							<input type="checkbox" value="${item}" ${(((item eq 'ON_SEA_FLOOR') && containsOnSeaFloor) || ((item eq 'ON_RISER') && containsOnRiser) || ((item eq 'SPLASH_ZONE') && containsSplashZone) || ((item eq 'SURFACE_TIE_IN') && containsSurfaceTieIn) || ((item eq 'SUBSURFACE_TIE_IN') && containsSubsurfaceTieIn) || ((item eq 'OTHER') && containsOther)) ? 'checked' : ''} ng-disabled="!editable"/> ${item.value}
+		       						</label>
+		       					</div>
+		       				</c:forEach>
+		        			</div>
+					    </div>
+					    <c:if test="${containsOther}">
+						    <div class="form-group c-other-box">
+							    <div class="col-sm-offset-3 col-sm-6">
+								    <input type="text" class="form-control" value="${ plOprModel.environmentOfOperationOther }" placeholder="Other, specify" ng-disabled="!editable"/>
+							    </div>
+		       				</div>
+		      				</c:if>
+				    </fieldset> -->
+				    
+				    <fieldset>
+		        		<legend>Did the Near-Miss involve diving or ROV?</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Diving involved?</label>
+		        			<div class="col-sm-9">
+			        			<div class="radio" >
+			        				<label class="c-radio-label"><input type="radio" value="Y" name="divingInvolved" ng-model="oriRpt.divingInvolved" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="divingInvolved" ng-model="oriRpt.divingInvolved" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="divingInvolved" ng-model="oriRpt.divingInvolved" ng-disabled="!editable"/> Don't Know </label>
+					        	</div>
+					    	</div>
+					    </div>
+					    <div class="form-group">
+			        		<label class="col-sm-3 control-label">ROV Involved?</label>
+		        			<div class="col-sm-9">
+			        			<div class="radio" >
+			        				<label class="c-radio-label"><input type="radio" value="Y" name="rovInvolved" ng-model="oriRpt.rovInvolved" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="rovInvolved" ng-model="oriRpt.rovInvolved" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="rovInvolved" ng-model="oriRpt.rovInvolved" ng-disabled="!editable"/> Don't Know </label>
+					        	</div>
+					    	</div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+		        		<legend>Did the Near-Miss involve Lifting or Hoisting?</legend>
+			        	<div class="form-group">
+							<div class="col-sm-9 col-sm-offset-3">
+								<em>Note: If yes, please fill out the lifting and hoisting form on next page.</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Lifting and Hoisting<span>*</span></label>
+							<div class="col-sm-9">
+			        			<div class="radio" >
+							        <label class="c-radio-label"><input type="radio" value="Y" name="pipelineLahInvolved" ng-model="oriRpt.pipelineLahInvolved" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="pipelineLahInvolved" ng-model="oriRpt.pipelineLahInvolved" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="pipelineLahInvolved" ng-model="oriRpt.pipelineLahInvolved" ng-disabled="!editable"/> Don't Know </label>
+			        			</div>
+							</div>
+						</div>
+		        	</fieldset>						    
+		    	</div>
+			</div>
+		</div> <!-- End of Pipeline Operation Panel -->
+			
+			
+		<div ng-if="oriRpt.happenedOperation.value=='TRANSPORTATION_OPERATIONS'" class="panel animate-if"> <!-- Start of Transportation Operation Panel -->
+			<div class="panel-heading">
+		    	<h2 class="panel-title">Transportation Operations</h2>
+			</div>
+			<div class="panel-body">
+				<div class="form-horizontal">
+		        	<fieldset>
+						<legend>Did the Near-Miss involve a rig?</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Rig Involved?</label>
+							<div class="col-sm-9">
+						<div class="radio" >
+		       				<label class="c-radio-label"><input type="radio" value="Y" name="rigInvolved" ng-model="oriRpt.rigInvolved" ng-disabled="!editable"/> Yes </label>
+					        <label class="c-radio-label"><input type="radio" value="N" name="rigInvolved" ng-model="oriRpt.rigInvolved" ng-disabled="!editable"/> No </label>
+					        <label class="c-radio-label"><input type="radio" value="DK" name="rigInvolved" ng-model="oriRpt.rigInvolved" ng-disabled="!editable"/> Don't Know </label>
+			        	</div>
+			    	</div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+						<legend>Did the near miss involve a platform?</legend>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Platform Involved?</label>
+							<div class="col-sm-9">
+								<div class="radio" >
+			        				<label class="c-radio-label"><input type="radio" value="Y" name="platformInvolved" ng-model="oriRpt.platformInvolved" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="platformInvolved" ng-model="oriRpt.platformInvolved" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="platformInvolved" ng-model="oriRpt.platformInvolved" ng-disabled="!editable"/> Don't Know </label>
+					        	</div>
+					    	</div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+						<legend>At the time of the near-miss, was the motor vessel/helicopter in radio contact with the facility?</legend>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">In Radio Contact?</label>
+							<div class="col-sm-9">
+			        			<div class="radio" >
+			        				<label class="c-radio-label"><input type="radio" value="Y" name="radioContact" ng-model="oriRpt.radioContact" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="radioContact" ng-model="oriRpt.radioContact" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="radioContact" ng-model="oriRpt.radioContact" ng-disabled="!editable"/> Don't Know </label>
+					        	</div>
+							</div>
+						</div>
+				    </fieldset>
+		        	
+		        	<fieldset>
+		        		<legend>Transportation Mode</legend>
+		        		<div class="form-group">
+			        		<label class="col-sm-3 control-label">Transportation Mode</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.transportationMode" ng-options="i.label for i in transportationModes" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.transportationMode.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.transportationModeOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+		        		<div ng-if="!oriRpt.transportationMode.otherTrigger && !oriRpt.transportationMode.value==''" class="form-group animate-if">
+		        			<label class="col-sm-3 control-label">Sub Transportation Mode</label>
+		        			<div class=" col-sm-8" >
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.transportationModeSub" ng-options="i.label for i in transportationModeSubs" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.transportationModeSub.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.transportationModeSubOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+						    </div>
+					    </div>
+			    	</fieldset>
+		       	
+		        	<fieldset>
+		        		<legend>Event Location</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Event Location</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.eventLocation" ng-options="i.label for i in eventLocations" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.eventLocation.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.eventLocationOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+		        		<legend>Work Activity</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Work Activity</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.workActivity" ng-options="i.label for i in workActivitys" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.workActivity.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.workActivityOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+		        		<legend>Did the Near-Miss involve Lifting or Hoisting?</legend>
+			        	<div class="form-group">
+							<div class="col-sm-9 col-sm-offset-3">
+								<em>Note: If yes, please fill out the lifting and hoisting form on next page.</em>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Lifting and Hoisting<span>*</span></label>
+							<div class="col-sm-9">
+			        			<div class="radio" >
+							        <label class="c-radio-label"><input type="radio" value="Y" name="transportationLahInvolved" ng-model="oriRpt.transportationLahInvolved" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="transportationLahInvolved" ng-model="oriRpt.transportationLahInvolved" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="transportationLahInvolved" ng-model="oriRpt.transportationLahInvolved" ng-disabled="!editable"/> Don't Know </label>
+			        			</div>
+							</div>
+						</div>
+		        	</fieldset>
+		    	</div>
+			</div>
+		</div> <!-- End of Transportation Operation Panel -->
+			
+			
+		<div ng-if="oriRpt.happenedOperation.value=='LIFTING_AND_HOISTING_OPERATIONS' || oriRpt.rigLahInvolved=='Y' || oriRpt.productionLahInvolved=='Y' || oriRpt.pipelineLahInvolved=='Y' || oriRpt.transportationLahInvolved=='Y'" class="panel animate-if"> <!-- Start of Lifting And Hoisting Operation Panel -->
+			<div class="panel-heading">
+		    	<h2 class="panel-title">Lifting And Hoisting Operations</h2>
+			</div>
+			<div class="panel-body">
+				<div class="form-horizontal">
+					<fieldset>
+		        		<legend>Lifting/Hoisting Activity</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Lifting From and To</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.liftingFromAndTo" ng-options="i.label for i in liftingFromAndTos" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.liftingFromAndTo.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.liftingFromAndToOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+		      												    
+					    <div class="form-group">
+			        		<label class="col-sm-3 control-label">Meterial in Pipeline</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.materialInPipelineLH" ng-options="i.label for i in materialInPipelineLHs" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.materialInPipelineLH.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.materialInPipelineLHOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+					    
+					    <div class="form-group">
+			        		<label class="col-sm-3 control-label">Device Location</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.deviceLocation" ng-options="i.label for i in deviceLocations" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.deviceLocation.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.deviceLocationOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+					    
+					    <div class="form-group">
+			        		<label class="col-sm-3 control-label">Communication Method Used</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.communicationMethod" ng-options="i.label for i in communicationMethods" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.communicationMethod.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.communicationMethodOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+				    </fieldset>
+				    
+				    <fieldset>
+		        		<legend>Crane Information</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Crane Installation</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.craneInstallation" ng-options="i.label for i in craneInstallations" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.craneInstallation.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.craneInstallationOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+					    
+					    <div class="form-group">
+			        		<label class="col-sm-3 control-label">Crane Type</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.craneType" ng-options="i.label for i in craneTypes" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.craneType.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.craneTypeOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+				    </fieldset>
+		        	
+		        	<fieldset>
+		        		<legend>Crane Inspection/Maintenance</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Equipment Type</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.equipmentType" ng-options="i.label for i in equipmentTypes" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.equipmentType.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.equipmentTypeOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+					    
+					    <div class="form-group">
+			        		<label class="col-sm-3 control-label">Combination of Devices</label>
+		        			<div class="col-sm-6">
+						    	<input type="text" class="form-control" ng-model="oriRpt.combinationOfDevices" ng-disabled="!editable"/>
+		        			</div>
+					    </div>
+					    
+					    <div class="form-group">
+		                         	<label class="col-sm-3 control-label">Pre-Use Inspection?</label>
+		                         	<div class="col-sm-9">
+			        			<div class="radio" >
+							        <label class="c-radio-label"><input type="radio" value="Y" name="preUseInspection" ng-model="$parent.oriRpt.preUseInspection" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="preUseInspection" ng-model="$parent.oriRpt.preUseInspection" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="preUseInspection" ng-model="$parent.oriRpt.preUseInspection" ng-disabled="!editable"/> Don't Know </label>
+					        	</div>
+					    	</div>
+					    </div>
+					    
+					    <div ng-if="oriRpt.preUseInspection=='Y'" class="form-group animate-if">
+							<label class="col-sm-3 control-label">Last Inspection Date</label>
+							<div class="col-sm-5">
+								<p class="input-group">
+					              	<input type="text" class="form-control" ng-model="oriRpt.lastInspectionDate" is-open="$parent.$parent.lidOpened" max-date="lidMaxDate" datepicker-options="dateOptions" datepicker-popup="MM/dd/yyyy" ng-required="true" ng-disabled="!editable"/>
+					              	<span class="input-group-btn">
+					                	<button type="button" class="btn btn-default" ng-click="lidOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+					              	</span>
+				            	</p>
+							</div>
+						</div>
+				    </fieldset>
+				    
+				    <fieldset>
+		        		<legend>Load Information</legend>
+			        	<div class="form-group">
+			        		<label class="col-sm-3 control-label">Load Type</label>
+		        			<div class="col-sm-6">
+						      	<select selectpicker class="selectpicker form-control" ng-model="oriRpt.loadType" ng-options="i.label for i in loadTypes" ng-disabled="!editable">
+		                            <option value="">-- choose one --</option>
+		                        </select>
+		                        <div ng-if="oriRpt.loadType.otherTrigger" class="animate-if">
+		                        	<input type="text" ng-model="oriRpt.loadTypeOther" class="form-control" placeholder="Other, specify" ng-disabled="!editable"/>
+		                        </div>
+		        			</div>
+					    </div>
+					    
+					    <div class="form-group">
+		                         	<label class="col-sm-3 control-label">Safety Harness?</label>
+		                         	<div class="col-sm-9">
+			        			<div class="radio" >
+							        <label class="c-radio-label"><input type="radio" value="Y" name="safetyHarness" ng-model="oriRpt.safetyHarness" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="safetyHarness" ng-model="oriRpt.safetyHarness" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="safetyHarness" ng-model="oriRpt.safetyHarness" ng-disabled="!editable"/> Don't Know </label>
+					        	</div>
+					    	</div>
+					    </div>
+					    
+					    <div class="form-group">
+		                         	<label class="col-sm-3 control-label">Life Line?</label>
+		                         	<div class="col-sm-9">
+			        			<div class="radio" >
+							        <label class="c-radio-label"><input type="radio" value="Y" name="lifeLine" ng-model="oriRpt.lifeLine" ng-disabled="!editable"/> Yes </label>
+							        <label class="c-radio-label"><input type="radio" value="N" name="lifeLine" ng-model="oriRpt.lifeLine" ng-disabled="!editable"/> No </label>
+							        <label class="c-radio-label"><input type="radio" value="DK" name="lifeLine" ng-model="oriRpt.lifeLine" ng-disabled="!editable"/> Don't Know </label>
+					        	</div>
+					    	</div>
+					    </div>
+				    </fieldset>
+				</div>
+			</div>
+		</div> <!-- End of Lifting And Hoisting Operation Panel -->
+			
+				
+		<div ng-if="oriRpt.happenedOperation.value=='OTHER'" class="panel animate-if"> <!-- Start of Other Operation Panel -->
+			<div class="panel-heading">
+		    	<h2 class="panel-title">Other Operations</h2>
+			</div>
+			<div class="panel-body">
+				<div class="form-horizontal">
+					<fieldset>
+						<legend>Please describe the Near-Miss Event as detail as possible.</legend>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Description<span>*</span></label>
+		                         	<div class="col-sm-9">
+			        			<textarea class="form-control oth-opr-des" ng-model="oriRpt.otherOperationsDescription" ng-disabled="!editable"></textarea>
+					    	</div>
+					    </div>
+					</fieldset>
+		    	</div>
+			</div>
+		</div> <!-- End of Other Operation Panel -->
+			
+		<div class="panel"> <!-- Start of Attachments Panel -->
+			<div class="panel-heading">
+		    	<h2 class="panel-title">Attachments</h2>
+			</div>
+			<div class="panel-body">
+				<div class="form-horizontal">
+		        	<table class="table table-striped">
+		    			<thead class="well">
+			    			<tr>
+			        			<th data-field="file" data-sortable="true">File</th>
+			        			<th data-field="size" data-sortable="true">Size</th>
+			        		</tr>
+		        		</thead>
+		        		<tbody>
+			           		<tr ng-repeat="file in oriRpt.oriRptFiles">
+			           			<td>{{file.name}}</td>
+			           			<td>{{file.size}}</td>
+			           		</tr>
+						</tbody>
+		    		</table>
+		    	</div>
+			</div>
+		</div> <!-- End of Attachments Panel -->
+	</div>
+</div>

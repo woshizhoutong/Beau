@@ -1,0 +1,24 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title">Edit Question</h4>
+</div>
+<div class="modal-body">
+	<div class='form-group'>
+		<label>Question title</label>
+		<input type="text" class="form-control" ng-model="newQuestion.qstTitle">
+	</div>
+	<div class='form-group'>
+		<label>Question instruction</label>
+		<input type="text" class="form-control" ng-model="newQuestion.qstInstruction">
+	</div>
+	<div class='form-group'  ng-show="editSequenceVisible">
+		<label>Parent question sequence:</label>
+		<select ng-options="model for model in allQstNumList" ng-model="sequenceNum"></select>
+	</div>
+	<div class='form-group'  ng-show="editShowOrderVisible">
+		<label>Show order:</label>
+		<select ng-options="model for model in allChildQstNumList" ng-model="showOrderNum"></select>
+	</div>
+	<input id ="btn_updateQuestion" type="submit" class="btn btn-default" value="Update" ng-click="updateQuestion()"/>
+	<input id ="btn_cancle" type="button" class="btn btn-default" value="Cancel" ng-click="cancel()"/>
+</div>

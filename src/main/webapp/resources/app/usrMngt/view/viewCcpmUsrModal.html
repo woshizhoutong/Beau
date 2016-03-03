@@ -1,0 +1,52 @@
+<div class="modal-header">
+    <h1 class="modal-title">Detail of CCPM user</h1>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal">
+		<div class="form-group">
+  			<label class="col-sm-4 control-label">User Name<span>*</span></label>
+  			<div class="col-sm-6">
+        		<p class="form-control-static">{{uModel.name}}</p>
+  			</div>
+		</div>
+		<div class="form-group">
+  			<label class="col-sm-4 control-label">Email<span>*</span></label>
+  			<div class="col-sm-6">
+        		<p class="form-control-static">{{uModel.email}}</p>
+  			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-4 control-label">Role Type<span>*</span></label>
+			<div class="col-sm-6">
+				<p class="form-control-static">{{uModel.roleType.label}}</p>
+			</div>
+		</div>
+		<div class="form-group">
+  			<label class="col-sm-4 control-label">Enabled</label>
+  			<div class="col-sm-6">
+				<p class="form-control-static">{{uModel.enabled}}</p>
+  			</div>
+		</div>
+		<div class="form-group">
+  			<label class="col-sm-4 control-label">Locked</label>
+  			<div class="col-sm-6">
+				<p class="form-control-static">{{uModel.locked}}</p>
+  			</div>
+		</div>
+		<div class="form-group">
+  			<label class="col-sm-4 control-label">Expired</label>
+  			<div class="col-sm-6">
+				<p class="form-control-static">{{uModel.expired}}</p>
+  			</div>
+		</div>
+		<div class="form-group">
+  			<label class="col-sm-4 control-label">Credential Expired</label>
+  			<div class="col-sm-6">
+				<p class="form-control-static">{{uModel.credentialExpired}}</p>
+  			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click="cancel()">Close</button>
+</div>

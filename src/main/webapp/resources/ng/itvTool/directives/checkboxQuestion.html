@@ -1,0 +1,13 @@
+<div class="question-header">
+	{{question.qstNum}}. {{question.qstTitle}}
+</div>
+
+<div class="question-body">
+	<em>{{question.qstInstruction}}</em>
+	<div class="checkbox" ng-repeat="option in question.qstOptionModels | orderBy: 'showOrder'">
+		<label>
+			<input type="checkbox" ng-model="$parent.inputAnswer[option.optId]" ng-change="fetchAnswer()"/>
+			{{option.optTitle}}
+		</label>
+	</div>
+</div>

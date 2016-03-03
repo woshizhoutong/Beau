@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h1 class="modal-title">Link Report {{confirmationId}} to a Incident</h1>
+</div>
+<div class="modal-body">
+	<tabset>
+    	<tab heading="Select from Existing Incidents" select="setLinkIncWay('SELECT_FROM_EXISTING')">
+   			<form class="form-horizontal">
+   				<div class="form-group">
+		   			<label class="col-sm-4 control-label"
+		   			tooltip="Range in Days is the number of days before and after the event date IRMS will search for potential incidents."
+	   				tooltip-placement="top"
+	   				tooltip-trigger="mouseenter">
+	   					Range in days 
+		   				<span class="glyphicon glyphicon-question-sign text-info"></span>
+		   			</label>
+		   			<div class="col-sm-3">
+		   				<div class="input-group">
+			        		<input type="text" class="form-control" ng-model="$parent.$parent.range" 
+			        		tooltip="Default is 3, you can change it to get different incidents list"
+			        		tooltip-placement="top"
+			        		tooltip-trigger="mouseenter"/>
+		        			<span class="input-group-btn">
+		                		<button class="btn btn-success" type="button" ng-click="refreshIncs()"><i class="glyphicon glyphicon-refresh"></i></button>
+		              		</span>
+		        		</div>
+		   			</div>
+	   			</div>
+   			</form>
+   		
+    		<div class="c-inc-list-box">
+			    <selectable-accordion close-others="true">
+					<selectable-accordion-group  is-open="panelOpened" ng-repeat="inc in incs" ng-click="setSelectedInc($index)">
+						<selectable-accordion-title>
+							{{inc.caseNum}}{{panelOpened}}
+						</selectable-accordion-title>
+						<selectable-accordion-expand>
+				    		<i class="glyphicon" ng-click="toggleIncDetail(panelOpened, inc.incidentId)" ng-class="{'glyphicon-chevron-down': panelOpened, 'glyphicon-chevron-right': !panelOpened}"></i>
+				    	</selectable-accordion-expand>
+				    	<div ng-include="'/irms/resources/app/view/incidentDetailTmpl1.html'"></div>
+					</selectable-accordion-group>
+				</selectable-accordion>
+    		</div>
+   		</tab>
+    	<tab heading="Create new Incident" select="setLinkIncWay('CREATE_NEW')">
+    		Create a new Incident based on the Report data
+    	</tab>
+	</tabset>
+	
+	linkIncWay: {{linkIncWay}}
+	Range: {{range}}
+	Selected Incident: {{selectedInc}}
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="linkInc()">Link to Incident</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

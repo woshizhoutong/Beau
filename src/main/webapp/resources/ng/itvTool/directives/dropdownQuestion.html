@@ -1,0 +1,10 @@
+<div class="question-header">
+	{{question.qstNum}}. {{question.qstTitle}}
+</div>
+
+<div class="question-body">
+	<em>{{question.qstInstruction}}</em>
+	<select selectpicker class="selectpicker form-control" ng-options="option.optId as option.optTitle for option in question.qstOptionModels" ng-model="inputAnswer[0]" ng-change="fetchAnswer()">
+        <option value="">-- choose one --</option>
+    </select>
+</div>

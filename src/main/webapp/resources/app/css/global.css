@@ -1,0 +1,378 @@
+/*================ START- Force every browser to use corder-box box model================================ */
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+/*================ END- Force every browser to use corder-box box model================================ */
+
+
+/*================ START- For ie8 or older================================ */
+.lt-ie9 body{
+	padding-top: 0px;
+}
+/*================ END- For ie8 or older================================ */
+
+
+/*================ START- Style the frame of site================================ */
+html {
+	font-size: 62.5%;
+}
+body {
+	font-size: 1.3em;
+}
+
+.navbar-fixed-bottom {
+	min-height: 30px;
+}
+
+.c-page-content {
+    background-color: #c0c0c0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 50px;
+    bottom: 30px;
+    padding: 5px;
+}
+
+.c-panel {
+	padding: 5px;
+	height: 100%;
+	float: left;
+	position: relative;
+	border: 1px solid;
+	border-width: 1px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.c-panel-left {
+	width: 24.8%;
+	margin-right: 0.2%;
+}
+
+.c-panel-right {
+	width: 74.8%;
+	margin-left: 0.2%;
+}
+/*================ END- Style the frame of site================================ */
+
+
+
+/*================ START- Style the tree================================ */
+.c-nav-tree {
+	overflow: auto;
+    height:100%;
+    white-space: nowrap;
+    padding: 10px 0px;
+}
+
+.c-tree-search-box {
+	margin: 0px 20px 10px 20px;
+}
+
+treecontrol ul {
+	overflow: inherit!important;
+}
+
+.c-iExpanded {
+	padding: 1px 10px!important;
+	background: 
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAgElEQVQ4T2NkoBAwUqifYZgaoAsMlw9A/BgtfOSBfB4gvoosji0M9gEVgBQ7AvEjqGIQfz8QPwBiJ0IGiAEV7AVibiB2AGKQJSDNX4HYGYhfETIAJI9sCIiPVTNIAl80wgwBqcOwGeYKQukAZAgIoDibGC8gq8HLJuQCggYNAwMAfzAREWwQh6MAAAAASUVORK5CYII=)
+		no-repeat
+		left center!important;
+}
+
+.c-iCollapsed {
+	padding: 1px 10px!important;
+	background: 
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAjElEQVQ4T2NkoBAwUqifgaYGMANd95eQC3G5QAiocS8QVwLxDnyG4DIAZPt8IA4D4gB8huALA6IMIRSIIEMWAnEIEPsB8S507xAygA+oYScQKwKxIxBfJ8UAkGZQACrh0gwyDJcLeKGalfFpxmcAB1ByFhC3Y3M2sjcIhQGhdETbpEzQdnxhQJRmkCIAkxUREfXPZXYAAAAASUVORK5CYII=)
+		no-repeat
+		left center!important;
+}
+/*================ END- Style the tree================================ */
+
+
+
+/*================ START- Style the main content================================ */
+.c-content {
+	height: 100%;
+}
+
+.c-content>.ng-scope {
+	height: 100%;
+}
+
+.c-content-wrapper {
+	height: 100%;
+	padding-top: 50px;
+	padding-bottom: 5px;
+}
+
+.c-content-heading {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 45px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom: 1px solid;
+	font-size: 1.3em;
+	margin-bottom: 0px!important;
+}
+
+.c-content-heading>tbody>tr>th {
+	height: 45px;
+	vertical-align: middle!important;
+}
+
+.c-content-heading>tbody>tr>th:first-child {
+	padding-left: 15px;
+}
+
+.c-content-heading>tbody>tr>th:last-child {
+	text-align: right!important;
+	padding-right: 15px;
+}
+
+.c-content-heading > p {
+	line-height: 45px;
+	margin: 0px 15px;
+}
+
+.c-content-tool-bar {
+	position: absolute;
+	top: 48px;
+	right: 25px;
+	padding: 5px 10px;
+	border-radius: 5px;
+	border: 1px solid;
+	background-color: #4f4f4f;
+	z-index: 100;
+}
+
+.c-content-body {
+	overflow: auto;
+	height: 100%;
+	padding: 0px 5px;
+}
+
+.panel-body {
+	padding: 5px 15px 0px 15px;
+}
+
+h1 {
+	font-size: 1.2em!important;
+}
+
+h2 {
+	font-size: 1.1em!important;
+}
+
+fieldset {
+	margin-bottom: 10px;
+}
+
+legend {
+	font-size: 1em;
+	margin-bottom: 5px;
+}
+
+.c-content-heading {
+	background-color: #adadad;
+}
+
+.panel , .panel-heading {
+	border-color: #A2A2A2;
+}
+
+.panel-heading {
+	background-color: #d3d3d3;
+}
+
+.c-report>.c-content-heading {
+	background-color: #B0DBFF;
+}
+
+.c-original-report>.c-content-heading {
+	background-color: #adadad;
+}
+
+.c-incident>.c-content-heading {
+	background-color: #80BD80;
+}
+
+.c-interview>.c-content-heading {
+	background-color: #ffa275!important;
+}
+
+.c-original-report .panel , .c-original-report .panel-heading {
+	border-color: #A2A2A2!important;
+}
+
+.c-original-report .panel-heading {
+	background-color: #d3d3d3!important;
+}
+
+.c-report legend, .c-report .panel-title {
+	color: #337ab7;
+}
+
+.c-report .panel , .c-report .panel-heading {
+	border-color: #337ab7!important;
+}
+
+.c-report .panel-heading {
+	background-color: #D3EBFF!important;
+}
+
+.c-incident legend, .c-incident .panel-title {
+	color: #3c763d;
+}
+
+.c-incident .panel , .c-incident .panel-heading {
+	border-color: #80BD80!important;
+}
+
+.c-incident .panel-heading {
+	background-color: #BCF3B5!important;
+}
+
+.c-interview .panel-title {
+	color: #000000;
+}
+
+.c-interview .panel:first-child , .c-interview .panel:first-child .panel-heading {
+	border-color: #ff8040!important;
+}
+
+.c-interview .panel:last-child , .c-interview .panel:last-child .panel-heading {
+	border-color: #A2A2A2!important;
+}
+
+.c-interview .panel:first-child .panel-heading {
+	background-color: #ffbe9f!important;
+}
+
+.c-interview .panel:last-child .panel-heading {
+	background-color: #d3d3d3!important;
+}
+/*================ Style the radio buttons ================================ */
+.c-radio-label {
+	margin-right: 20px;
+}
+
+.form-group {
+	margin-bottom: 5px;
+}
+
+/*================ END- Style the main content================================ */
+
+
+/*================ START- Style the Original Report and Report================================ */
+.c-dateTimeRangePart {
+	position: relative;
+	min-height: 1px;
+	float: left;
+	padding-left: 0px!important;
+	padding-right: 0px!important;
+}
+
+.c-dateTimeRangeTo {
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 34px;
+	color: #555;
+	text-align: center;
+	background-color: #d3d3d3;
+	border: 1px solid #ccc;
+	float: left;
+	width: 10%;
+	height: 34px;
+	vertical-align: middle;
+}
+
+.c-dateRangPart {
+	width: 45%;
+}
+/*================ END- Style the Original Report and Report================================ */
+
+
+/*================ START- Style the Link Incident Modal================================ */
+.modal-header, .modal-body {
+	padding: 10px 20px;
+}
+.tab-content {
+	padding-top: 20px;
+}
+
+.c-inc-list-box {
+	max-height: 400px;
+	overflow: auto;
+	padding: 10px 40px;
+}
+
+.c-selectable-accordion-group {
+	background-color: #fff;
+	border: 1px solid #ddd;
+}
+
+.c-selectable-accordion-group .list-group-item {
+	padding: 10px 15px;
+	border: none;
+	border-radius: 0px;
+}
+
+.c-form-control-read-only {
+	display: block;
+	width: 100%;
+	min-height: 34px;
+	padding: 6px 12px;
+	line-height: 1.42857143;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+/*=====================================================*/
+
+
+
+
+
+
+
+
+.table {
+	margin-bottom: 0px;
+}
+
+th {
+	cursor: pointer;
+}
+
+.st-sort-ascent:before{
+    content: '\25B2';
+}
+
+  .st-sort-descent:before{
+    content: '\25BC';
+}
+
+
+.c-metadata {
+	border-top: 1px solid #e5e5e5;
+}
+
+.c-add-btn {
+	margin: 5px 0px;
+}
+
+	
+}

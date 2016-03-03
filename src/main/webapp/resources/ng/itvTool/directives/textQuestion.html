@@ -1,0 +1,8 @@
+<div class="question-header">
+	{{question.qstNum}}. {{question.qstTitle}}
+</div>
+
+<div class="question-body">
+	<em>{{question.qstInstruction}}</em>
+	<input type="text" class="form-control" name="text-{{question.qstNum}}" ng-model="directiveAnswer[0]">
+</div>

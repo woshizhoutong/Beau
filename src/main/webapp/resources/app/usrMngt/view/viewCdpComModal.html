@@ -1,0 +1,74 @@
+<div class="modal-header">
+    <h1 class="modal-title">Detail of Cdp Company</h1>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal">
+		<div class="form-group">
+  			<label class="col-sm-3 control-label">Company Name<span>*</span></label>
+  			<div class="col-sm-3">
+        		<p class="form-control-static">{{cModel.name}}</p>
+  			</div>
+  			<label class="col-sm-3 control-label">Enabled</label>
+  			<div class="col-sm-3">
+				<p class="form-control-static">{{cModel.enabled}}</p>
+  			</div>
+		</div>
+		<div class="form-group">
+  			<label class="col-sm-3 control-label">Metadata Version Number</label>
+  			<div class="col-sm-3">
+        		<p class="form-control-static">{{cModel.metadataVersionNumber}}</p>
+  			</div>
+  			<label class="col-sm-3 control-label">Created Date</label>
+  			<div class="col-sm-3">
+  				<p class="form-control-static">{{cModel.createdDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+  			</div>
+		</div>
+		<div class="c-metadata">
+			<div>
+				<label>Metadata List</label>
+			</div>
+			<div ng-repeat="metadata in cModel.latestMetadataModels">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="pull-right glyphicon" ng-click="isCollapsed = !isCollapsed" ng-class="{'glyphicon-chevron-down': !isCollapsed, 'glyphicon-chevron-right': isCollapsed}"></i>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">File Name:</label>
+				  			<div class="col-sm-4">
+								<p class="form-control-static">{{metadata.fileName}}</p>
+				  			</div>
+			  			</div>
+			  			<div class="form-group">
+							<label class="col-sm-2 control-label">Description:</label>
+				  			<div class="col-sm-8">
+								<p class="form-control-static">{{metadata.description}}</p>
+				  			</div>
+			  			</div>
+					</div>
+					<div uib-collapse="isCollapsed" class="panel-body">
+						<table st-table="metadata.metadataFields" class="table table-striped">
+							<thead class="well">
+					  			<tr>
+					      			<th>Field Name</th>
+					      			<th>Field Label</th>
+					      			<th>Field Format</th>
+					      			<th>Field Description</th>
+					      		</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="field in metadata.metadataFields">
+									<td><p class="form-control-static">{{field.name}}</p></td>
+									<td><p class="form-control-static">{{field.label}}</p></td>
+									<td><p class="form-control-static">{{field.format}}</p></td>
+									<td><p class="form-control-static">{{field.description}}</p></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-success" ng-click="cancel()">Close</button>
+</div>

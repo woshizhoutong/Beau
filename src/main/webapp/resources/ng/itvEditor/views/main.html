@@ -1,0 +1,32 @@
+<div class="editor-wrapper">
+	<div class="editor-header-wrapper">
+		<button type="button" class="btn btn-default" ng-click="openExistingQuestions()">Open</button>
+		<button type="button" class="btn btn-default" ng-click="resetFlowchart()">Reset Flowchart</button>
+		<button type="button" class="btn btn-default" ng-click="openAddQuestionModal()">New Question</button>
+		<button type="button" class="btn btn-default" ng-click="save(allQuestionData)">Save Draft</button>
+		<button type="button" class="btn btn-danger" ng-click="finalize(allQuestionData)">Finalize</button>
+	</div>
+	
+	<div class="editor-body-wrapper">
+		<div id="flowchart">
+		  <flowchart-body go-model="model" external-update="externalUpdate" style="width:100%; height:100%"></flowchart-body>
+		</div>
+		
+		<div id="editBoard">
+	<!-- 	  Selected node: {{model.selectedNodeData.key}}  <input type="text" ng-model="model.selectedNodeData.text"></input> -->
+		  <question-template question="question" 
+		  highlight-opt-num="highlightOptNum"
+		   update-question-sequence-trg="updateQuestionSequence(qstDataForUpdate)" 
+		   update-flowchart-trg="updateFlowchart()"
+		    highlight-answer="highlightAnswer" 
+		    delete-question-trg="deleteQuestion(chosenDeleteQuestion)">
+		    </question-template>
+	 	</div>
+	 </div>
+</div>
+<br>
+
+<!-- <hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>
+      {{question}}
+<hr><hr>
+{{allQuestionData}} -->

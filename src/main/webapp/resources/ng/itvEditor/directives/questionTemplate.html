@@ -1,0 +1,111 @@
+<div class="parent-question-wrapper" >
+	<div ng-if="question.qstType == 'RADIO'" class="question-box"> 
+		<radio-question question="question" 
+		highlight-opt-num="highlightOptNum" 
+		update-question-sequence="updateQuestionSequence(qstDataForUpdate)" 
+		update-flowchart="updateFlowchart()" 
+		delete-question="deleteQuestion(chosenDeleteQuestion)" 
+		binding-answer="highlightAnswer">
+		</radio-question>
+	</div>
+	
+	<div ng-if="question.qstType == 'TEXT'" class="question-box">
+		<text-question question="question"  
+		binding-answer="" 
+		update-question-sequence="updateQuestionSequence(qstDataForUpdate)" 
+		update-flowchart="updateFlowchart()" 
+		delete-question="deleteQuestion(chosenDeleteQuestion)">
+		</text-question>
+	</div>
+	
+	<div ng-if="question.qstType == 'TEXTAREA'" class="question-box">
+		<textarea-question question="question" 
+		binding-answer="" 
+		update-question-sequence="updateQuestionSequence(qstDataForUpdate)" 
+		update-flowchart="updateFlowchart()" 
+		delete-question="deleteQuestion(chosenDeleteQuestion)">
+		</textarea-question>
+	</div>
+	
+	<div ng-if="question.qstType == 'DROPDOWN'" class="question-box">
+		<dropdown-question question="question" 
+		highlight-opt-num="highlightOptNum" 
+		update-question-sequence="updateQuestionSequence(qstDataForUpdate)" 
+		update-flowchart="updateFlowchart()" 
+		delete-question="deleteQuestion(chosenDeleteQuestion)"  
+		binding-answer="highlightAnswer">
+		</dropdown-question>
+	</div>
+	
+	<div ng-if="question.qstType == 'CHECKBOX'" class="question-box">
+		<checkbox-question question="question" 
+		highlight-opt-num="highlightOptNum" 
+		update-question-sequence="updateQuestionSequence(qstDataForUpdate)" 
+		update-flowchart="updateFlowchart()" 
+		delete-question="deleteQuestion(chosenDeleteQuestion)" 
+		binding-answer="highlightAnswer">
+		</checkbox-question>
+	</div>
+</div>
+
+<div ng-if="question.length > 0">
+	<hr>
+</div>
+
+<div class="child-question-wrapper">
+	<div  ng-repeat="childQuestion in question.editChildQuestionModels | orderBy: 'qstNum'">
+	
+		<div ng-if="childQuestion.qstType == 'RADIO'" class="question-box">
+			<radio-question question="childQuestion" 
+			highlight-opt-num="highlightOptNum" 
+			update-question-sequence="updateQuestionSequence(qstDataForUpdate)" 
+			update-flowchart="updateFlowchart()" 
+			delete-question="deleteQuestion(chosenDeleteQuestion)" 
+			binding-answer="$parent.highlightAnswer" 
+			update-child-question-show-order="updateChildQuestionShowOrder(qstDataForUpdate)">
+			</radio-question>
+		</div>
+		
+		<div ng-if="childQuestion.qstType == 'TEXT'" class="question-box">
+			<text-question question="childQuestion" 
+			update-question-sequence="updateQuestionSequence(qstDataForUpdate)" 
+			update-flowchart="updateFlowchart()" 
+			binding-answer="" 
+			delete-question="deleteQuestion(chosenDeleteQuestion)"
+			update-child-question-show-order="updateChildQuestionShowOrder(qstDataForUpdate)">
+			</text-question>
+		</div>
+		
+		<div ng-if="childQuestion.qstType == 'TEXTAREA'" class="question-box">
+			<textarea-question question="childQuestion" 
+			update-question-sequence="updateQuestionSequence(qstDataForUpdate)" 
+			update-flowchart="updateFlowchart()" 
+			binding-answer="" 
+			delete-question="deleteQuestion(chosenDeleteQuestion)"
+			update-child-question-show-order="updateChildQuestionShowOrder(qstDataForUpdate)">
+			</textarea-question>
+		</div>
+		
+		<div ng-if="childQuestion.qstType == 'DROPDOWN'" class="question-box">
+			<dropdown-question question="childQuestion" 
+			highlight-opt-num="highlightOptNum" 
+			update-question-sequence="updateQuestionSequence(qstDataForUpdate)" 
+			update-flowchart="updateFlowchart()" 
+			delete-question="deleteQuestion(chosenDeleteQuestion)"  
+			binding-answer="$parent.highlightAnswer"
+			update-child-question-show-order="updateChildQuestionShowOrder(qstDataForUpdate)">
+			</dropdown-question>
+		</div>
+		
+		<div ng-if="childQuestion.qstType == 'CHECKBOX'" class="question-box">
+			<checkbox-question question="childQuestion" 
+			highlight-opt-num="highlightOptNum" 
+			update-question-sequence="updateQuestionSequence(qstDataForUpdate)" 
+			update-flowchart="updateFlowchart()" 
+			delete-question="deleteQuestion(chosenDeleteQuestion)" 
+			binding-answer="$parent.highlightAnswer"
+			update-child-question-show-order="updateChildQuestionShowOrder(qstDataForUpdate)">
+			</checkbox-question>
+		</div>
+	</div>
+</div>

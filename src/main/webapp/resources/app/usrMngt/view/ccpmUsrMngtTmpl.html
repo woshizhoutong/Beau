@@ -1,0 +1,71 @@
+<div class="c-content-wrapper">
+	<div class="c-content-heading">
+		<p>Close Call Process Manager User Management</p>
+	</div>
+	<div class="c-content-body">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<div class="panel-title">Existing Users</div>
+			</div>
+			<div ng-switch="existingUsers.length" class="panel-body">
+				<p ng-switch-when="0">There is no existing user.</p>
+				<table ng-switch-default st-table="existingUsers" class="table table-striped">
+					<thead>
+			  			<tr>
+			      			<th st-sort="name">Name</th>
+			      			<th st-sort="email">Email</th>
+			      			<th st-sort="roleType.label">Role</th>
+			      			<th st-sort="enabled">Enabled</th>
+			      			<th></th>
+			      			<th></th>
+			      			<th></th>
+			      		</tr>
+			      		<tr>
+							<th>
+								<input st-search="name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="email" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th>
+								<input st-search="company.name" placeholder="search..." class="input-sm form-control" type="search"/>
+							</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="user in existingUsers" ng-class="{'danger': !user.enabled}">
+							<td>{{user.name}}</td>
+							<td>{{user.email}}</td>
+							<td>{{user.roleType.label}}</td>
+							<td>{{user.enabled}}</td>
+							<td>
+								<button type="button" class="btn btn-success btn-xs" ng-click="view(user)">
+									<span class="glyphicon glyphicon-eye-open"></span> View
+								</button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-info btn-xs" ng-click="edit(user)" ng-disabled="!hasUpdateAuth">
+									<span class="glyphicon glyphicon-edit"></span> Edit
+								</button>
+							</td>
+							<td>
+								<button type="button" class="btn btn-danger btn-xs" ng-click="remove(user)" ng-disabled="!hasUpdateAuth">
+									<span class="glyphicon glyphicon-minus-sign"></span> Delete
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="button" class="btn btn-info btn-xs c-add-btn" ng-click="add()" ng-disabled="!hasUpdateAuth">
+					<span class="glyphicon glyphicon-plus-sign"></span> Add User
+				</button>
+			</div>
+		</div>
+		
+		
+	</div>
+</div>

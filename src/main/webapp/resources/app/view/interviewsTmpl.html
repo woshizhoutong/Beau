@@ -1,0 +1,86 @@
+<div class="c-interview c-content-wrapper">
+	<table class="table c-content-heading">
+		<tr>
+			<th>
+				<span class="text-primary">Interviews for Report 
+					<a href="#/rpt/{{rpt.reportId}}"><Strong>{{rpt.confirmationId}}</Strong></a>
+				</span>
+			</th>
+			<th></th>
+		</tr>
+	</table>
+	
+	<div class="c-content-body">
+		<div class="panel">
+			<div class="panel-heading">
+		    	<h2 class="panel-title">Active Interview(s)</h2>
+			</div>
+			<div class="panel-body">
+	        	<table ng-if="activeItvs.length>0" class="table table-striped">
+	    			<thead class="well">
+		    			<tr>
+		        			<th data-field="scheduledStartTime">Scheduled Time</th>
+		        			<th data-field="duration">Duration</th>
+		        			<th data-field="interviewer">Interviewer</th>
+		        			<th data-field="scriber">Scriber</th>
+		        			<th data-field="start">Start</th>
+		        			<th data-field="edit">Edit</th>
+		        			<th data-field="delete">Delete</th>
+		        		</tr>
+	        		</thead>
+	        		<tbody>
+		           		<tr ng-repeat="itv in activeItvs">
+		           			<td>{{itv.scheduledStartTime | date: 'yyyy-MM-dd hh:mm a' : 'UTC'}}</td>
+		           			<td>{{itv.scheduledEndTime | date: 'yyyy-MM-dd hh:mm a' : 'UTC'}}</td>
+		           			<td>{{itv.interviewer.name}}</td>
+		           			<td>{{itv.scriber.name}}</td>
+		           			<td>
+		           				<button type="button" class="btn btn-primary btn-sm" ng-click="startInterview(itv)"><span class="glyphicon glyphicon-phone-alt"></span> Start</button>
+		           			</td>
+		           			<td>
+		           				<button type="button" class="btn btn-info btn-sm" ng-click="editInterview(itv)"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+	           				</td>
+	           				<td>
+		           				<button type="button" class="btn btn-danger btn-sm" ng-click="deleteInterview(itv)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+	           				</td>
+		           		</tr>
+					</tbody>
+	    		</table>
+	    		<div ng-if="activeItvs.length==0">No active interview is scheduled. Go to Report page to schedule one.</div>
+			</div>
+		</div>
+		
+		<div class="panel">
+			<div class="panel-heading">
+		    	<h2 class="panel-title">Historical Interview(s)</h2>
+			</div>
+			<div class="panel-body">
+	        	<table ng-if="historicalItvs.length>0" class="table table-striped">
+	    			<thead class="well">
+		    			<tr>
+		        			<th data-field="status">Status</th>
+		        			<th data-field="startTime">Started Time</th>
+		        			<th data-field="duration">Duration</th>
+		        			<th data-field="scheduledStartTime">Scheduled Time</th>
+		        			<th data-field="scheduledDuration">Scheduled Duration</th>
+		        			<th data-field="interviewer">Interviewer</th>
+		        			<th data-field="scriber">Scriber</th>
+		        		</tr>
+	        		</thead>
+	        		<tbody>
+		           		<tr ng-repeat="itv in historicalItvs">
+		           			<td>{{itv.status.label}}</td>
+		           			<td>{{itv.startTime | date: 'yyyy-MM-dd hh:mm a' : 'UTC'}}</td>
+		           			<td>{{(itv.endTime - itv.startTime) / (60 * 1000)}}</td>
+		           			<td>{{itv.scheduledStartTime | date: 'yyyy-MM-dd hh:mm a' : 'UTC'}}</td>
+		           			<td>{{itv.scheduledEndTime | date: 'yyyy-MM-dd hh:mm a' : 'UTC'}}</td>
+		           			<td>{{itv.interviewer.name}}</td>
+		           			<td>{{itv.scriber.name}}</td>
+		           		</tr>
+					</tbody>
+	    		</table>
+	    		<div ng-if="historicalItvs.length==0">No historical interviews.</div>
+			</div>
+		</div>
+	</div>
+</div>

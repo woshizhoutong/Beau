@@ -1,0 +1,92 @@
+<div class="modal-header">
+    <h1 class="modal-title">Edit Cdp Company</h1>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal">
+		<div class="form-group">
+  			<label class="col-sm-3 control-label">Company Name<span>*</span></label>
+  			<div class="col-sm-3">
+        		<input type="text" class="form-control" ng-model="cModel.name"/>
+  			</div>
+  			<label class="col-sm-3 control-label">Enabled</label>
+  			<div class="col-sm-3">
+				<input type="checkbox" class="checkbox" ng-model="cModel.enabled"/>
+  			</div>
+		</div>
+		<div class="form-group">
+  			<label class="col-sm-3 control-label">Metadata Version Number</label>
+  			<div class="col-sm-3">
+        		<p class="form-control-static">{{cModel.metadataVersionNumber}}</p>
+  			</div>
+  			<label class="col-sm-3 control-label">Created Date</label>
+  			<div class="col-sm-3">
+  				<p class="form-control-static">{{cModel.createdDate | date: 'yyyy-MM-dd HH:mm'}}</p>
+  			</div>
+		</div>
+		<div class="c-metadata">
+			<div>
+				<label>Metadata List</label>
+			</div>
+			<button type="button" class="btn btn-success c-add-btn" ng-click="addMetadata()">
+				<span class="glyphicon glyphicon-plus-sign"></span> Add Metadata
+			</button>
+			<div ng-repeat="metadata in cModel.latestMetadataModels">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="pull-right glyphicon" ng-click="isCollapsed = !isCollapsed" ng-class="{'glyphicon-chevron-down': !isCollapsed, 'glyphicon-chevron-right': isCollapsed}"></i>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">File Name:</label>
+				  			<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model="metadata.fileName"/>
+				  			</div>
+				  			<button type="button" class="btn btn-danger" ng-click="deleteMetadata($index)">
+								<span class="glyphicon glyphicon-minus-sign"></span> Delete Metadata
+							</button>
+			  			</div>
+			  			<div class="form-group">
+							<label class="col-sm-2 control-label">Description:</label>
+				  			<div class="col-sm-8">
+								<textarea type="text" class="form-control" ng-model="metadata.description"></textarea>
+				  			</div>
+			  			</div>
+					</div>
+					<div uib-collapse="isCollapsed" class="panel-body">
+						<table st-table="metadata.metadataFields" class="table table-striped">
+							<thead class="well">
+					  			<tr>
+					      			<th>Field Name</th>
+					      			<th>Field Label</th>
+					      			<th>Field Format</th>
+					      			<th>Field Description</th>
+					      			<th></th>
+					      		</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="field in metadata.metadataFields">
+									<td><input type="text" class="form-control" ng-model="field.name"/></td>
+									<td><input type="text" class="form-control" ng-model="field.label"/></td>
+									<td><input type="text" class="form-control" ng-model="field.format"/></td>
+									<td><input type="text" class="form-control" ng-model="field.description"/></td>
+									<td>
+										<button type="button" class="btn btn-danger btn-xs" ng-click="deleteField($parent.$index, $index)">
+											<span class="glyphicon glyphicon-minus-sign"></span>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<button type="button" class="btn btn-success btn-xs c-add-btn" ng-click="addField($index)">
+							<span class="glyphicon glyphicon-plus-sign"></span> Add Field
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+    <button ng-show="!cModel.metadataDefined" class="btn btn-info" ng-click="saveDraft()">Save Draft</button>
+    <button ng-show="!cModel.metadataDefined" class="btn btn-primary" ng-click="finalizeCreation()">Finalize Creation</button>
+    <button ng-show="cModel.metadataDefined" class="btn btn-primary" ng-click="update()">Save</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

@@ -1,0 +1,13 @@
+<div class="question-header">
+	{{question.qstNum}}. {{question.qstTitle}}
+</div>
+
+<div class="question-body">
+	<em>{{question.qstInstruction}}</em>
+	<div class="radio" ng-repeat="option in question.qstOptionModels | orderBy: 'showOrder'">
+    	<label>
+    		<input type="radio" name="radio-{{question.qstNum}}" value="{{option.optId}}" ng-model="$parent.inputAnswer[0]" ng-change="fetchAnswer()"/>
+    		{{option.optTitle}} ({{option.optInstruction}})
+    	</label>
+  	</div>
+</div>
